@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= planet.name %></title>
+  </head>
+  <body>
+    <h1><%= planet.name %></h1>
+    <% if ( planet.isAPlanet) { %>
+        <p>This is a real planet</p>
+    <% } else { %>
+        <p>This is a planet of your creation!</p>
+   <% }%>
+   <h1><%=planet.description%></h1>
+
+   <!-- edit planet -->
+<a href="/planets/new"> Add another planet</a> 
+<!-- view all planets -->
+  </body>
+</html>

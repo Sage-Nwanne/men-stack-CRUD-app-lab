@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planets</title>
+</head>
+<body>
+    <h1>All Planets</h1>
+    <% if (planets.length === 0) { %>  
+        <p>There are no planets in your galaxy... yet.</p>
+        <a href="/planets/new">Create a new planet</a>
+    <% } else { %>
+        <ul>
+         <% planets.forEach(planet => { %>
+                <li><a href="/planets/<%=planets._id%>"><%=planets.name%></a></li>
+                <li><%=planets.description%></li>
+                <li><%=planets.isARealPlanet%></li>
+         <%  }); %>
+         </ul>
+         <a href="/views/planets/new.ejs">Add Planet</a>
+    <% } %>
+</body>
+</html>
