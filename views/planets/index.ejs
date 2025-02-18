@@ -3,22 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planets</title>
+    <title> All Planets</title>
 </head>
 <body>
-    <h1>All Planets</h1>
-    <% if (planets.length === 0) { %>  
+    <h1>Your Galaxy 🪐</h1>
+    <% if ( typeof noPlanets !== 'undefined' && noPlanets) { %>  
         <p>There are no planets in your galaxy... yet.</p>
         <a href="/planets/new">Create a new planet</a>
     <% } else { %>
         <ul>
-         <% planets.forEach(planet => { %>
-                <li><a href="/planets/<%=planets._id%>"><%=planets.name%></a></li>
-                <li><%=planets.description%></li>
-                <li><%=planets.isARealPlanet%></li>
+         <% allPlanets.forEach(planet => { %>
+                <li><a href="/planets/<%=planet._id%>"><%=planet.name%></a></li>
+                <li><%=planet.description%></li>
+                <br>
+                <li><%= planet.isARealPlanet ? "Not Real Planet" : "Real planet" %></li>
+                <br><br>
          <%  }); %>
          </ul>
          <a href="/views/planets/new.ejs">Add Planet</a>
+         <a href="/views/index.ejs">Home</a>
     <% } %>
 </body>
 </html>

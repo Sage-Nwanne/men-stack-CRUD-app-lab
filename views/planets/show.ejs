@@ -8,15 +8,22 @@
   </head>
   <body>
     <h1><%= planet.name %></h1>
-    <% if ( planet.isAPlanet) { %>
+    <% if ( planet.isARealPlanet) { %>
         <p>This is a real planet</p>
     <% } else { %>
         <p>This is a planet of your creation!</p>
    <% }%>
-   <h1><%=planet.description%></h1>
+   <p>Description:<%=planet.description%></p>
 
-   <!-- edit planet -->
+
+   <form action="/planets/<%=planet._id%>?_method=DELETE" method="DELETE">
+    <button type="submit">Delete Planet <%= planet.name %>?</button>
+  </form>
+
+<a href="/planets/<%= planet._id%>/edit">Edit<%planet.name %>?</a>
+<br><br>
 <a href="/planets/new"> Add another planet</a> 
-<!-- view all planets -->
+<br><br>
+<a href="/planets"> View your galaxy</a> 
   </body>
 </html>
