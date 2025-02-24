@@ -24,7 +24,7 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({extended: false}));
 
 
-//Landinf page
+//Landing page
 app.get('/' , async (req, res) => {
     res.render('index.ejs');
 });
@@ -34,7 +34,8 @@ app.get('/' , async (req, res) => {
 app.get('/planets/new', (req, res) => {
     res.render('planets/new');
 });
-app.post('/planets/new', (req, res) => {
+app.post('/planets', async (req, res) => {
+    const planet = await Planet.findById(req.params.id)
     res.redirect('/planets/index.ejs')
 } )
 
@@ -49,7 +50,7 @@ app.get('/planets/:id/edit', async (req,res) => {
     res.render('fruits/edit.ejs')
 })
 //then...
-app.put('/planets/:id' , async (req,res) => {
+app.put('/planets/:planetsid' , async (req,res) => {
     const planet = await Planet.findByIdAndUpdate(req.params.id , req.body)
     res.redirect(`/planets/${req.params.id}`)
 })
@@ -66,10 +67,9 @@ app.delete('/planets/:id' , async (req,res) => {
 //Show all planets
 app.get('/planets', async (req,res) => {
     const allPlanets = await Planet.find({});
-    const noPlanets = allPlanets.length === 0;
 
 
-    res.render("planets/index.ejs", {allPlanets, noPlanets})
+    res.render("planets/index.ejs", {allPlanets})
 });
 
 
