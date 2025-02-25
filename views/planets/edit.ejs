@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit  <%= planet.name%> </title>
+</head>
+<body>
+    <h1>Edit Planet <%=planet.name%></h1>
+</body>
+<form action="/planets/<%=planet._id%>?_method=PUT" method="POST">
+  <label for="name">Planet Name:</label> 
+  <input type="text" name="name" id="name"/>
+
+  <label for="isAPlanet">Is this a real planet?</label>
+  <input type="checkbox" name="isAPlanet" id="isAPlanet" <%if (planet.isARealPlanet) { %> checked <% } %>
+    />
+
+  <br><br>
+  <label for="description" ></label>
+  <br>
+  <textarea name="description" id="description" placeholder="Enter a description..."><%= planet.description || "" %></textarea>
+
+
+  <br>
+  <button type="submit">Add Planet</button>
+</form>
+</html>
+
+</body>
+</html>

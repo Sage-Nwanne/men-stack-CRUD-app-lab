@@ -34,30 +34,46 @@ app.get('/' , async (req, res) => {
 app.get('/planets/new', (req, res) => {
     res.render('planets/new');
 });
-app.post('/planets', async (req, res) => {
-    const planet = await Planet.findById(req.params.id)
-    res.redirect('/planets/index.ejs')
-} )
+
+app.post('/planets' , async (req,res) => {
+    await Planet.create(req.body)
+    res.redirect('/planets/show');
+});
+
 
 // Show the planet
 app.get('/planets/:id' , async (req,res) => {
     const planet = await Planet.findById(req.params.id)
     res.render('planets/show.ejs', {planet});
 })
+
+
+
+
+
 // Edit the planet (gettin the page, then putting updated information.)
 app.get('/planets/:id/edit', async (req,res) => {
-    const editPlanet = await Planet.findById(req.params.id);
-    res.render('fruits/edit.ejs')
+    const planet = await Planet.findById(req.params.id);
+    res.render('planets/edit.ejs', {planet})
 })
-//then...
-app.put('/planets/:planetsid' , async (req,res) => {
-    const planet = await Planet.findByIdAndUpdate(req.params.id , req.body)
-    res.redirect(`/planets/${req.params.id}`)
+
+//put edited planet....
+app.put('/:planetsId' , async (req,res) => {
+    try {
+        if (req.body.isReadyToEat === 'on') {
+            req.body.isReadyToEat = true;
+        } else {
+            req.body.isReadyToEat = false;
+        }
+
+        await Planet.findByIdAndUpdate(req.params.planetsId, req.body);
+        res.redirect(`/planets/${req.params.planetsId}`)
+    } catch (error) {console.log(error)  }
 })
+
 // Delete the planet
 app.delete('/planets/:id' , async (req,res) => {
-    const planet = await Planet.findByIdAndDelete(req.params.id)
-    console.log('signal is being sent ur just being redirected to the wrong place')
+    const currentPlanet = await Planet.findById(req.params.id).deleteOne
     res.redirect('/planets')
 })
 
@@ -77,12 +93,6 @@ app.get('/planets', async (req,res) => {
 
 //
 
-
-app.post('/planets' , async (req,res) => {
-    await Planet.create(req.body)
-   
-    res.redirect('/planets/show');
-});
 
 
 
